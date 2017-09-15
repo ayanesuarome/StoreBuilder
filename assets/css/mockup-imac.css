@@ -1,0 +1,36 @@
+div.imac-mockup {
+  position:relative;
+  max-width:1000px;
+  margin:20px;
+}
+
+.imac-mockup img.device {
+  width:100%;
+  height:auto;
+}
+
+.imac-mockup .screen {
+  position:absolute;
+  width:92%;
+  height:64.5%;
+  top:5%;
+  border-radius:2px;
+  left:4%;
+  background-color:#aaa;
+  overflow:hidden;
+  background:url(../../assets/img/screen-content-imac.jpg);
+  background-size:cover;
+  background-position:center;
+}
+
+.imac-mockup .screen:before {
+  content:'';
+  background-color:#fff;
+  position:absolute;
+  width:70%;
+  height:140%;
+  top:-26%;
+  right:-39%;
+  transform:rotate(-19deg);
+  opacity:0.1;
+}
