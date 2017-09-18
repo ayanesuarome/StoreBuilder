@@ -14,7 +14,7 @@ This template was originally designed and developed for the open source e-commer
 ![screenshot](https://github.com/ayanesuarome/StoreBuilder/screenshots/project.jpg)
 
 ### Footer
-![screenshot](https://github.com/ayanesuarome/StoreBuilder/screenshots/footer.png)
+![screenshot](https://github.com/ayanesuarome/StoreBuilder/screenshots/footer.jpg)
 
 ## Characteristics and Libraries:
 <ul>
