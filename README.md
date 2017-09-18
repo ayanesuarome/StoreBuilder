@@ -1,7 +1,8 @@
 # StoreBuilder nopCommerce oriented template
 Flat and responsive website template, designed and coded by <a href="https://github.com/ayanesuarome">Ayane Suarez</a>.
 <br /><br />
-This template was originally designed and developed for the open source e-commerce solution <a href="https://www.nopcommerce.com/">nopCommerce</a> (a universal eCommerce platform).
+This template was originally designed and developed for the open source e-commerce solution <a href="https://www.nopcommerce.com/">nopCommerce</a> (a universal eCommerce platform).<br />
+Nonetheless, you can use it for any purpose you want to.
 ## Preview
 
 ### Home
@@ -25,6 +26,9 @@ This template was originally designed and developed for the open source e-commer
   <li>Animate</li>
   <li>WOW</li>
   <li>JQuery</li>
+  <li>Owl carousel</li>
+  <li>Datapicker</li>
+  <li>Icheck</li>
 </ul>
 
 ## License
