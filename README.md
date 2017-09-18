@@ -1,4 +1,4 @@
-# StoreBuilder nopCommerce oriented template
+# StoreBuilder (nopCommerce-oriented template)
 Flat and responsive website template, designed and coded by <a href="https://github.com/ayanesuarome">Ayane Suarez</a>.
 <br /><br />
 This template was originally designed and developed for the open source e-commerce solution <a href="https://www.nopcommerce.com/">nopCommerce</a> (a universal eCommerce platform).<br />
