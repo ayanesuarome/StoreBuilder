@@ -873,7 +873,7 @@ ul.external li a:hover {
 
 #blog .btn:hover {
   background-color:#009EE3;
-  color:#fff;
+  color:#fff !important;
 }
 
 #blog.blog-list {
