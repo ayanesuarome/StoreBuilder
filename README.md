@@ -5,13 +5,13 @@ This template was originally designed and developed for the open source e-commer
 ## Preview
 
 ### Home
-![screenshot](https://github.com/ayanesuarome/StoreBuilder/screenshots/home.png)
+![screenshot](https://github.com/ayanesuarome/StoreBuilder/screenshots/home.jpg)
 
 ### Why choose us
-![screenshot](https://github.com/ayanesuarome/StoreBuilder/screenshots/why-choose-us.png)
+![screenshot](https://github.com/ayanesuarome/StoreBuilder/screenshots/why-choose-us.jpg)
 
 ### Feature projects
-![screenshot](https://github.com/ayanesuarome/StoreBuilder/screenshots/project.png)
+![screenshot](https://github.com/ayanesuarome/StoreBuilder/screenshots/project.jpg)
 
 ### Footer
 ![screenshot](https://github.com/ayanesuarome/StoreBuilder/screenshots/footer.png)
