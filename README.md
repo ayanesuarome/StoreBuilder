@@ -16,10 +16,10 @@ Feel free to use it for any personal or commercial purpose.
 ![screenshot](https://github.com/ayanesuarome/StoreBuilder/blob/master/screenshots/why-choose-us.jpg)
 
 ### Blog
-![screenshot](https://github.com/ayanesuarome/StoreBuilder/blob/master/screenshots/blog.jpg)
+![screenshot](https://github.com/ayanesuarome/StoreBuilder/blob/master/screenshots/blog.png)
 
 ### Responsive Blog item (Samsung Galaxy S7)
-![screenshot](https://github.com/ayanesuarome/StoreBuilder/blob/master/screenshots/responsive-blog-item.jpg)
+![screenshot](https://github.com/ayanesuarome/StoreBuilder/blob/master/screenshots/responsive-blog-item.png)
 
 ### Feature projects
 ![screenshot](https://github.com/ayanesuarome/StoreBuilder/blob/master/screenshots/project.jpg)
