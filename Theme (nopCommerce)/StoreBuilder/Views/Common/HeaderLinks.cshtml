@@ -1,0 +1,20 @@
+﻿@model HeaderLinksModel
+@using Nop.Web.Models.Common;
+<div class="col-md-7 col-sm-6">
+    <ul class="list-inline aditional-info-links">
+        @Html.Widget("header_links_before")
+        @if (Model.IsAuthenticated)
+        {
+            @T("Theme.StoreBuilder.HelloCustomer")
+            <li><a href="@Url.RouteUrl("CustomerInfo")" class="text-lowercase">@Model.CustomerEmailUsername</a></li>
+            <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+            <li><a href="@Url.RouteUrl("Logout")">@T("Account.Logout")</a></li>
+        }
+        else
+        {
+            <li><a href="@Url.RouteUrl("Register")">@T("Account.Register")</a></li>
+            <li><a href="@Url.RouteUrl("Login")">@T("Account.Login")</a></li>
+        }
+        @Html.Widget("header_links_after")
+    </ul>
+</div>

@@ -1,0 +1,111 @@
+﻿@model ContactUsModel
+@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Localization
+@using Nop.Web.Models.Common;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.ContactUs").Text);
+
+    //store company phone number
+    var store = EngineContext.Current.Resolve<IStoreContext>().CurrentStore;
+    var companyAddress = store.GetLocalized(x => x.CompanyAddress, store.Id);
+    var companyPhoneNumber = store.GetLocalized(x => x.CompanyPhoneNumber, store.Id);
+    var companyEmailAddress = store.GetLocalized(x => x.CompanyEmailAddress, store.Id);
+}
+
+<section id="home" class="home-contact">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="wow fadeInUp" data-wow-delay="0.6s">@T("PageTitle.ContactUs")</h1>
+                <p class="wow fadeInUp" data-wow-delay="0.8s">@T("Theme.StoreBuilder.ContactUs.Home.Message")</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1 col-sm-12 wow fadeInUp" data-wow-delay="0.4s">
+                @Html.Widget("contactus_top")
+                @if (Model.SuccessfullySent)
+                {
+                    <div class="result">
+                        @Model.Result
+                    </div>
+                }
+                else
+                {
+                    using (Html.BeginForm())
+                    {
+                        var validationSummary = Html.ValidationSummary(true);
+                        if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                        {
+                            <div class="message-error">@validationSummary</div>
+                        }
+                        if (Model.SubjectEnabled)
+                        {
+                            <div class="col-md4 col-sm-4">
+                                @Html.TextBoxFor(model => model.FullName, new {@class = "form-control", placeholder = T("ContactUs.FullName")})
+                                @Html.ValidationMessageFor(model => model.FullName)
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                @Html.TextBoxFor(model => model.Email, new {@class = "form-control", placeholder = T("ContactUs.Email")})
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                            <div class="col-md-4 col-sm-4">
+                                @Html.TextBoxFor(model => model.Subject, new {@class = "form-control", placeholder = T("ContactUs.Subject.Hint")})
+                                @Html.ValidationMessageFor(model => model.Subject)
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-6 col-sm-6">
+                                @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", placeholder = T("ContactUs.FullName") })
+                                @Html.ValidationMessageFor(model => model.FullName)
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = T("ContactUs.Email") })
+                                @Html.ValidationMessageFor(model => model.Email)
+                            </div>
+                        }
+                        <div class="col-sm-12">
+                            @Html.TextAreaFor(model => model.Enquiry, new {@class = "form-control", rows = "6", placeholder = T("Theme.StoreBuilder.ContactUs.Enquiry") })
+                            @Html.ValidationMessageFor(model => model.Enquiry)
+                        </div>
+                        if (Model.DisplayCaptcha)
+                        {
+                            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                                @Html.Raw(Html.GenerateCaptcha())
+                            </div>
+                        }
+                        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                            <input type="submit" class="form-control" name="send-email" value="@T("Theme.StoreBuilder.ContactUs.Submit")" />
+                        </div>
+                    }
+                }
+                @Html.Widget("contactus_bottom")
+            </div>
+            
+            <div class="clearfix"></div>
+            
+            <div class="col-md-4 col-sm-6 wow fadeInLeft" data-wow-delay="0.6s">
+                <div class="contact-detail">
+                    <h3>@T("Theme.StoreBuilder.ContactUs.ContactInformation")</h3>
+                    <p class="small">@companyAddress</p>
+                    <p class="small">@companyPhoneNumber</p>
+                    <p class="small">@companyEmailAddress</p>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-6 wow fadeInRight" data-wow-delay="0.8s">
+                <div id="google-map">
+                    <iframe src="https://www.google.com/maps/embed/v1/place?q=Florida%2C+US&amp;zoom=11"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.AboutUs").Text);
+}
+
+<section id="home" class="home-about">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="wow fadeInUp" data-wow-delay="0.6s">@T("Admin.Common.AboutUs")</h1>
+                <p class="wow fadeInUp" data-wow-delay="0.8s">@T("Theme.StoreBuilder.AboutUs.Home.Message")</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="contact-welcome">
+    <div class="container">
+        <div class="row">
+            @Html.Action("TopicBlockNoTitle", "Topic", new {systemName = "AboutUsSection" })
+        </div>
+    </div>
+</section>
+@Html.Action("WhyChooseUs", "Common")
+@Html.Action("Testimonials", "Common")

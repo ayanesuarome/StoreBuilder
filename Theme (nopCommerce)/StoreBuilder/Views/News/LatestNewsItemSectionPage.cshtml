@@ -1,0 +1,26 @@
+﻿@model LatestNewsItemsPageModel
+@using Nop.Web.Models.News;
+@if (Model.NewsItems.Count > 0)
+{
+    <div class="recent-post">
+        <h2>@T("Theme.StoreBuilder.News.RecentNewsItems")</h2>
+        @foreach (var item in Model.NewsItems)
+        {
+            <div class="media">
+                <div class="media-object pull-left">
+                    @if (!string.IsNullOrEmpty(item.PictureModel.ImageUrl))
+                    {
+                        <a href="@Url.RouteUrl("NewsItem", new {SeName = item.SeName})">
+                            <img class="img-responsive" src="@item.PictureModel.ImageUrl" alt="@item.PictureModel.AlternateText">
+                        </a>
+                    }
+                </div>
+                <div class="media-body">
+                    <h3 class="media-heading">
+                        <a href="@Url.RouteUrl("NewsItem", new {SeName = item.SeName})">@item.Title</a>
+                    </h3>
+                </div>
+            </div>
+        }
+    </div>
+}

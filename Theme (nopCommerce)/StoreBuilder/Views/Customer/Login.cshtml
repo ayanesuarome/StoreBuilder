@@ -1,0 +1,91 @@
+﻿@model LoginModel
+@using Nop.Web.Models.Customer;
+@using Nop.Core;
+@using Nop.Core.Infrastructure;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Login").Text);
+
+    //register URL with return URL (if specified)
+    var registerUrl = Url.RouteUrl("Register");
+    if (!string.IsNullOrEmpty(Context.Request.QueryString["returnUrl"]))
+    {
+        var webHelper = EngineContext.Current.Resolve<IWebHelper>();
+        registerUrl = webHelper.ModifyQueryString(registerUrl, "returnurl=" + HttpUtility.UrlEncode(Context.Request.QueryString["returnUrl"]), null);
+    }
+}
+
+<section id="login">
+    <div class="container">
+        <h2 class="wow bounceIn page-title-h2" data-wow-delay="0.4s">@T("Account.Login.Welcome")</h2>
+        @Html.Partial("_ExternalAuthentication.AssociateMessage")
+        @Html.Partial("_ExternalAuthentication.Errors")
+        <div class="row">
+            <div class="col-md-4 col-md-offset-1 col-sm-6 padding-bottom-20 wow fadeInLeft" data-wow-delay="0.6s">
+                <h3 class="text-center">@T("Account.Login.NewCustomer")</h3>
+                <div class="col-md-12 same-height-container">
+                    <p class="small">@T("Theme.StoreBuilder.Account.Login.NewCustomerText")</p>
+                </div>
+                <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+                    <a href="@registerUrl" class="btn btn-input">@T("Account.Register")</a>
+                </div>
+            </div>
+            <div class="col-md-5 col-md-offset-1 col-sm-6 wow fadeInRight" data-wow-delay="0.8s">
+                <h3 class="text-center">@T("Theme.StoreBuilder.Account.Login.LoginToYourAccount")</h3>
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "login-form" }))
+                {
+                    var validationSummary = Html.ValidationSummary(true, T("Account.Login.Unsuccessful").Text);
+                    if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                    {
+                        @validationSummary
+                    }
+                    <div class="same-height-container">
+                        @if (Model.UsernamesEnabled)
+                        {
+                            <div class="col-md-10 col-md-offset-1">
+                                @Html.TextBoxFor(m => m.Username, new {@class = "form-control", autofocus = "autofocus", placeholder = T("Account.Login.Fields.UserName")})
+                                @Html.ValidationMessageFor(m => m.Username)
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-10 col-md-offset-1">
+                                @Html.TextBoxFor(m => m.Email, new {@class = "form-control", autofocus = "autofocus", placeholder = T("Account.Login.Fields.Email")})
+                                @Html.ValidationMessageFor(m => m.Email)
+                            </div>
+                        }
+                        <div class="col-md-10 col-md-offset-1">
+                            @Html.PasswordFor(m => m.Password, new {@class = "form-control", placeholder = T("Account.Login.Fields.Password")})
+                            @Html.ValidationMessageFor(m => m.Password)
+                        </div>
+                        <div class="col-md-10 col-md-offset-1 col-sm-12">
+                            <div class="remember-me">
+                                <div class="checkbox">
+                                    <label for="RememberMe">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        @T("Account.Login.Fields.RememberMe")
+                                    </label>
+                                </div>
+                            </div>
+                            <span class="forgot-password">@Html.RouteLink(T("Account.Login.ForgotPassword").Text, "PasswordRecovery")</span>
+                        </div>
+                        @if (Model.DisplayCaptcha)
+                        {
+                            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                                @Html.Raw(Html.GenerateCaptcha())
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+                        <input type="submit" class="form-control" value="@T("Account.Login.LoginButton")"/>
+                    </div>
+                }
+            </div>
+            <div class="external-authentication">
+                @Html.Action("ExternalMethods", "ExternalAuthentication")
+            </div>
+        </div>
+    </div>
+</section>

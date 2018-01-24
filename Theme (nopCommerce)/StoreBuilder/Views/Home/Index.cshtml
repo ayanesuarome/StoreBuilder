@@ -1,0 +1,169 @@
+﻿@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Localization
+@using Nop.Web.Framework.Themes
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //store name
+    var store = EngineContext.Current.Resolve<IStoreContext>().CurrentStore;
+    var storeName = store.GetLocalized(x => x.Name, store.Id);
+
+    //theme name
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+}
+
+@Html.Widget("home_page_top")
+<div id="home" class="slideshow">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <h1 class="wow fadeInUp" data-wow-delay="0.6s">@T("Theme.StoreBuilder.Home.WelcomeTitle", storeName)</h1>
+                <p class="hidden-xs wow fadeInUp" data-wow-delay="0.8s">@T("Theme.StoreBuilder.Home.WelcomeMessage")</p>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Widget("home_page_before_build_store")
+<section id="build-store">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="sec-title-h2 wow bounceIn">@T("Theme.StoreBuilder.Home.BuildYourStore") - <strong>@T("Theme.StoreBuilder.Home.BuildYourStore.Free")!</strong></h2>
+                <h4 class="sec-title-h4 wow fadeInUp" data-wow-delay="0.6s">@T("Theme.StoreBuilder.Home.BuildYourStoreMessage")</h4>
+            </div>
+            <div class="col-md-12 features">
+                <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp" data-wow-delay="0.8s">
+                    <div class="service-item">
+                        <div class="service-icon"><i class="fa fa-code fa-3x"></i>
+                        </div>
+                        @Html.Action("TopicBlockNoTitle", "Topic", new {systemName = "Block1BuildStoreHomeSection"})
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp" data-wow-delay="1s">
+                    <div class="service-item">
+                        <div class="service-icon"><i class="fa fa-tasks fa-3x"></i>
+                        </div>
+                        @Html.Action("TopicBlockNoTitle", "Topic", new {systemName = "Block2BuildStoreHomeSection"})
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp" data-wow-delay="1.2s">
+                    <div class="service-item">
+                        <div class="service-icon"><i class="fa fa-bar-chart fa-3x"></i>
+                        </div>
+                        @Html.Action("TopicBlockNoTitle", "Topic", new {systemName = "Block3BuildStoreHomeSection"})
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 col-xs-12 wow fadeInUp" data-wow-delay="1.4s">
+                    <div class="service-item">
+                        <div class="service-icon"><i class="fa fa-globe fa-3x"></i>
+                        </div>
+                        @Html.Action("TopicBlockNoTitle", "Topic", new {systemName = "Block4BuildStoreHomeSection"})
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@Html.Widget("home_page_before_why_choose_us")
+@Html.Action("WhyChooseUs", "Home")
+@*TODO: FEATURE PROJECTS WHEN EXIST*@
+@Html.Widget("home_page_before_register_to_store")
+<section id="register-to-store" class="wow bounceIn">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 wow bounceInLeft" data-wow-delay="0.4s">
+                <h2>@T("Theme.StoreBuilder.Home.RegisterToStoreMessage") <em>@T("Theme.StoreBuilder.Home.ChooseYourPlanMessage")</em></h2>
+            </div>
+            <div class="col-md-2 register-btn wow bounceInRight" data-wow-delay="0.6s"><a href="@Url.RouteUrl("Register")" class="btn btn-primary btn-flex btn-big">@T("Theme.StoreBuilder.Home.RegisterNow")</a>
+            </div>
+        </div>
+    </div>
+</section>
+@Html.Widget("home_page_before_pricing_table")
+<section id="pricing-table">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2 class="sec-title-h2 wow bounceIn"><strong>@T("Theme.StoreBuilder.Home.PricingTable.Pricing")</strong>&nbsp;@T("Theme.StoreBuilder.Home.PricingTable.Table")</h2>
+                <h4 class="sec-title-h4 wow fadeInUp" data-wow-delay="0.2s">@T("Theme.StoreBuilder.Home.PricingTable.Message")</h4>
+            </div>
+        </div>
+        <div class="row padding-top-10">
+            <div class="col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="0.4s">
+                <div class="pricingTable purple">
+                    <div class="pricingTable-header">
+                        <h3>@T("Theme.StoreBuilder.Home.PricingTable.Plan.B")</h3><span>Lorem Ipsum</span>
+                    </div>
+                    <div class="pricing-plans"><span class="price-value"><i class="fa fa-usd"></i><span>10</span></span><span class="month">/month </span></div>
+                    <div class="pricingContent">
+                        <ul>
+                            <li>Item 1</li>
+                            <li>Item 2</li>
+                            <li>Item 3</li>
+                            <li>Item 4</li>
+                        </ul>
+                    </div>
+                    <div class="pricingTable-sign-up"><a href="@Url.RouteUrl("Login")" class="btn btn-block">@T("Theme.StoreBuilder.Singup")</a></div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="0.6s">
+                <div class="pricingTable yellow">
+                    <div class="pricingTable-header">
+                        <h3>@T("Theme.StoreBuilder.Home.PricingTable.Plan.B")</h3><span>Lorem Ipsum</span>
+                    </div>
+                    <div class="pricing-plans"><span class="price-value"><i class="fa fa-usd"></i><span>50</span></span><span class="month">/month </span></div>
+                    <div class="pricingContent">
+                        <ul>
+                            <li>Item 1</li>
+                            <li>Item 2</li>
+                            <li>Item 3</li>
+                            <li>Item 4</li>
+                        </ul>
+                    </div>
+                    <div class="pricingTable-sign-up"><a href="@Url.RouteUrl("Login")" class="btn btn-block">@T("Theme.StoreBuilder.Singup")</a></div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 wow fadeInUp" data-wow-delay="0.8s">
+                <div class="pricingTable green">
+                    <div class="pricingTable-header">
+                        <h3>@T("Theme.StoreBuilder.Home.PricingTable.Plan.A")</h3><span>Lorem Ipsum</span>
+                    </div>
+                    <div class="pricing-plans"><span class="price-value"><i class="fa fa-usd"></i><span>100</span></span><span class="month">/month </span></div>
+                    <div class="pricingContent">
+                        <ul>
+                            <li>Item 1</li>
+                            <li>Item 2</li>
+                            <li>Item 3</li>
+                            <li>Item 4</li>
+                        </ul>
+                    </div>
+                    <div class="pricingTable-sign-up"><a href="@Url.RouteUrl("Login")" class="btn btn-block">@T("Theme.StoreBuilder.Singup")</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@Html.Widget("home_page_before_testimonials")
+@Html.Action("Testimonials", "Home")
+@Html.Widget("home_page_before_news")
+@Html.Action("HomePageNews", "News")
+@Html.Widget("home_page_before_poll")
+@Html.Action("HomePagePolls", "Poll")
+@Html.Widget("home_page_bottom")
+<script type="text/javascript">
+    $(document).ready(function() {
+        //Backstretch Slideshow
+        $(".slideshow").backstretch(
+        [
+            "@Url.Content(string.Format("~/Themes/{0}/Content/images/slider/slider-img1.jpg", currentThemeName))",
+            "@Url.Content(string.Format("~/Themes/{0}/Content/images/slider/slider-img2.jpg", currentThemeName))",
+            "@Url.Content(string.Format("~/Themes/{0}/Content/images/slider/slider-img3.jpg", currentThemeName))"
+        ],
+        {
+            fade: 750,
+            duration: 4000
+        });
+    });
+</script>

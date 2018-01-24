@@ -1,0 +1,30 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+}
+@Html.Widget("body_start_html_tag_after")
+@Html.Partial("_Notifications")
+@Html.Action("JavaScriptDisabledWarning", "Common")
+
+<div class="preloader">
+    <div class="sk-wandering-cubes">
+        <div class="sk-cube sk-cube1"></div>
+        <div class="sk-cube sk-cube2"></div>
+    </div>
+</div>
+@Html.Action("AdminHeaderLinks", "Common")
+@Html.Partial("Header")
+@Html.Widget("content_before")
+@if (IsSectionDefined("Breadcrumb"))
+{
+    @RenderSection("Breadcrumb")
+}
+@RenderBody()
+@Html.Widget("content_after")
+
+@Html.Action("Footer", "Common")
+<div class="scroll-top-wrapper">
+    <span class="scroll-top-inner"><i class="fa fa-angle-up fa-2x"></i></span>
+</div>
+
+@Html.Action("EuCookieLaw", "Common")
+@Html.Widget("body_end_html_tag_before")

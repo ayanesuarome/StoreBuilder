@@ -1,11 +1,11 @@
 # StoreBuilder
 ## HTML5 template and nopCommerce theme
 One repository with two items: the HTML5 template and the nopCommerce theme.
-<br />
+<br /><br />
 Flat and responsive website template, designed and coded by <a href="https://github.com/ayanesuarome">Ayane Suarez</a>.
 <br /><br />
 This template was originally designed and developed for the open source e-commerce solution <a href="https://www.nopcommerce.com/">nopCommerce</a> (a universal eCommerce platform).<br />
-Nonetheless, you can use it for any personnal or commercial purpose.
+Feel free to use it for any personal or commercial purpose.
 
 ## Preview
 

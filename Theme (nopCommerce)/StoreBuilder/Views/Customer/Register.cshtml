@@ -1,0 +1,355 @@
+﻿@model RegisterModel
+@using Nop.Web.Models.Customer;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Register").Text);
+}
+@if (Model.CountryEnabled && Model.StateProvinceEnabled)
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#@Html.FieldIdFor(model => model.CountryId)").change(function () {
+                var selectedItem = $(this).val();
+                var ddlStates = $("#@Html.FieldIdFor(model => model.StateProvinceId)");
+                var statesProgress = $("#states-loading-progress");
+                statesProgress.show();
+                $.ajax({
+                    cache: false,
+                    type: "GET",
+                    url: "@(Url.RouteUrl("GetStatesByCountryId"))",
+                    data: { "countryId": selectedItem, "addSelectStateItem": "true" },
+                    success: function (data) {
+                        ddlStates.html('');
+                        $.each(data, function (id, option) {
+                            ddlStates.append($('<option></option>').val(option.id).html(option.name));
+                        });
+                        statesProgress.hide();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(T("Admin.Common.States.Retrieve.Error").Text);
+                        statesProgress.hide();
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<section id="register">
+    <div class="container">
+        <h2 class="wow bounceIn page-title-h2">@T("Theme.StoreBuilder.Account.Register.CreateAccount")</h2>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    var validationSummary = Html.ValidationSummary(true);
+                    if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                    {
+                        @validationSummary
+                    }
+                    @Html.Partial("_ExternalAuthentication.AssociateMessage")
+                    <div class="col-md-10 col-md-offset-1 padding-bottom-20 wow fadeInUp" data-wow-delay="0.4s">
+                        <h3 class="text-center">@T("Account.YourPersonalDetails")</h3>
+                        @if (Model.GenderEnabled)
+                        {
+                            <div class="form-group">
+                                <label class="control-label">@T("Account.Fields.Gender"):</label>
+                                <div class="radio">
+                                    <label for="gender-male" class="control-label">
+                                        @Html.RadioButton("Gender", "M", (Model.Gender == "M"), new {id = "gender-male"})
+                                        @T("Account.Fields.Gender.Male")
+                                    </label>
+                                </div>
+                                <div class="radio">
+                                    <label for="gender-female" class="control-label">
+                                        @Html.RadioButton("Gender", "F", (Model.Gender == "F"), new {id = "gender-female"})
+                                        @T("Account.Fields.Gender.Female")
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                        @Html.TextBoxFor(model => model.FirstName, new {@class = "form-control", placeholder = T("Account.Fields.FirstName") + "*"})
+                        @Html.ValidationMessageFor(model => model.FirstName)
+
+                        @Html.TextBoxFor(model => model.LastName, new {@class = "form-control", placeholder = T("Account.Fields.LastName") + "*"})
+                        @Html.ValidationMessageFor(model => model.LastName)
+
+                        @if (Model.DateOfBirthEnabled)
+                        {
+                            if (Model.DateOfBirthRequired)
+                            {
+                                <fieldset>
+                                    <legend>@T("Account.Fields.DateOfBirth")*</legend>
+                                    @Html.DatePickerDropDowns(Html.FieldNameFor(x => x.DateOfBirthDay),
+                                        Html.FieldNameFor(x => x.DateOfBirthMonth),
+                                        Html.FieldNameFor(x => x.DateOfBirthYear),
+                                        DateTime.Now.Year - 110,
+                                        DateTime.Now.Year,
+                                        Model.DateOfBirthDay,
+                                        Model.DateOfBirthMonth,
+                                        Model.DateOfBirthYear)
+
+                                    @Html.ValidationMessageFor(model => model.DateOfBirthDay)
+                                    @Html.ValidationMessageFor(model => model.DateOfBirthMonth)
+                                    @Html.ValidationMessageFor(model => model.DateOfBirthYear)
+                                </fieldset>
+                            }
+                            else
+                            {
+                                <fieldset>
+                                    <legend>@T("Account.Fields.DateOfBirth")</legend>
+                                    @Html.DatePickerDropDowns(Html.FieldNameFor(x => x.DateOfBirthDay),
+                                    Html.FieldNameFor(x => x.DateOfBirthMonth),
+                                    Html.FieldNameFor(x => x.DateOfBirthYear),
+                                    DateTime.Now.Year - 110,
+                                    DateTime.Now.Year,
+                                    Model.DateOfBirthDay,
+                                    Model.DateOfBirthMonth,
+                                    Model.DateOfBirthYear)
+
+                                    @Html.ValidationMessageFor(model => model.DateOfBirthDay)
+                                    @Html.ValidationMessageFor(model => model.DateOfBirthMonth)
+                                    @Html.ValidationMessageFor(model => model.DateOfBirthYear)
+                                </fieldset>
+                            }
+
+                        }
+
+                        @Html.TextBoxFor(model => model.Email, new {@class = "form-control", placeholder = T("Account.Fields.Email") + "*" })
+                        @Html.ValidationMessageFor(model => model.Email)
+
+                        @if (Model.UsernamesEnabled)
+                        {
+                            @Html.TextBoxFor(model => model.Username, new {@class = "form-control", placeholder = T("Account.Fields.Username") + "*"})
+                            @Html.ValidationMessageFor(model => model.Username)
+                            if (Model.CheckUsernameAvailabilityEnabled)
+                            {
+                                @Html.Partial("_CheckUsernameAvailability")
+                            }
+                        }
+                    </div>
+
+                    if (Model.CompanyEnabled || Model.DisplayVatNumber)
+                    {
+                        <div class="col-md-10 col-md-offset-1 padding-bottom-20 wow fadeInUp" data-wow-delay="0.6s">
+                            <h3 class="text-center">@T("Account.CompanyDetails")</h3>
+                            @if (Model.CompanyEnabled)
+                            {
+                                if (Model.CompanyRequired)
+                                {
+                                    @Html.TextBoxFor(model => model.Company, new {@class = "form-control", placeholder = T("Account.Fields.Company") + "*"})
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(model => model.Company, new { @class = "form-control", placeholder = T("Account.Fields.Company") })
+                                }
+                                @Html.ValidationMessageFor(model => model.Company)
+                            }
+                            @if (Model.DisplayVatNumber)
+                            {
+                                @Html.TextBoxFor(model => model.VatNumber, new { @class = "form-control", placeholder = T("Account.Fields.VatNumber") })
+                                <p class="small">@T("Account.Fields.VatNumber.Note")</p>
+                            }
+                        </div>
+                    }
+                    if (Model.StreetAddressEnabled || Model.StreetAddress2Enabled || Model.ZipPostalCodeEnabled || Model.CityEnabled || Model.CountryEnabled)
+                    {
+                        <div class="col-md-10 col-md-offset-1 padding-bottom-20 wow fadeInUp" data-wow-delay="0.6s">
+                            <h3 class="text-center">@T("Account.YourAddress")</h3>
+                            @if (Model.StreetAddressEnabled)
+                            {
+                                if (Model.StreetAddressRequired)
+                                {
+                                    @Html.TextBoxFor(model => model.StreetAddress, new {@class = "form-control", placeholder = T("Account.Fields.StreetAddress") + "*"})
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(model => model.StreetAddress, new { @class = "form-control", placeholder = T("Account.Fields.StreetAddress") })
+                                }
+                                @Html.ValidationMessageFor(model => model.StreetAddress)
+                            }
+                            @if (Model.StreetAddress2Enabled)
+                            {
+                                if (Model.StreetAddress2Required)
+                                {
+                                    @Html.TextBoxFor(model => model.StreetAddress2, new { @class = "form-control", placeholder = T("Account.Fields.StreetAddress2") + "*" })
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(model => model.StreetAddress2, new { @class = "form-control", placeholder = T("Account.Fields.StreetAddress2") })
+                                }
+                                @Html.ValidationMessageFor(model => model.StreetAddress2)
+                            }
+                            @if (Model.ZipPostalCodeEnabled)
+                            {
+                                if (Model.ZipPostalCodeRequired)
+                                {
+                                    @Html.TextBoxFor(model => model.ZipPostalCode, new { @class = "form-control", placeholder = T("Account.Fields.ZipPostalCode") + "*"})
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(model => model.ZipPostalCode, new { @class = "form-control", placeholder = T("Account.Fields.ZipPostalCode") })
+                                }
+                                @Html.ValidationMessageFor(model => model.ZipPostalCode)
+                            }
+                            @if (Model.CityEnabled)
+                            {
+                                if (Model.CityRequired)
+                                {
+                                    @Html.TextBoxFor(model => model.City, new {@class = "form-control", placeholder = T("Account.Fields.City")} + "*")
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(model => model.City, new { @class = "form-control", placeholder = T("Account.Fields.City") })
+                                }
+                                @Html.ValidationMessageFor(model => model.City)
+                            }
+                            @if (Model.CountryEnabled)
+                            {
+                                <div class="input-group">
+                                    @if (Model.CountryRequired)
+                                    {
+                                        <span class="input-group-addon">@T("Account.Fields.Country")*</span>
+                                    }
+                                    else
+                                    {
+                                        <div class="input-group-addon"><span>@T("Account.Fields.Country")</span></div>
+                                    }
+                                    @Html.DropDownList("CountryId", Model.AvailableCountries, new {@class = "form-control"})
+                                </div>
+                                @Html.ValidationMessageFor(model => model.CountryId)
+                            }
+                                    @if (Model.CountryEnabled && Model.StateProvinceEnabled)
+                                    {
+                                        <div class="input-group">
+                                            @if (Model.StateProvinceRequired)
+                                            {
+                                                <div class="input-group-addon"><span>@T("Account.Fields.StateProvince")*</span></div>
+                                            }
+                                            else
+                                            {
+                                                <div class="input-group-addon"><span>@T("Account.Fields.StateProvince")</span></div>
+                                            }
+                                            @Html.DropDownList("StateProvinceId", Model.AvailableStates, new { @class = "form-control" })
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.StateProvinceId)
+                                        <span id="states-loading-progress" class="please-wait" style="display: none;">
+                                            <i class="fa fa-spinner fa-pulse"></i>
+                                            @T("Common.Wait...")
+                                        </span>
+                                    }
+                                </div>
+                            }
+                    if (Model.PhoneEnabled || Model.FaxEnabled)
+                    {
+                        <div class="col-md-10 col-md-offset-1 padding-bottom-20 wow fadeInUp" data-wow-delay="0.8s">
+                            <h3 class="text-center">@T("Account.YourContactInformation")</h3>
+                            @if (Model.PhoneEnabled)
+                            {
+                                if (Model.PhoneRequired)
+                                {
+                                    @Html.TextBoxFor(model => model.Phone, new {@class = "form-control", placeholder = T("Account.Fields.Phone") + "*"})
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = T("Account.Fields.Phone") })
+                                }
+                                @Html.ValidationMessageFor(model => model.Phone)
+                            }
+                            @if (Model.FaxEnabled)
+                            {
+                                if (Model.FaxRequired)
+                                {
+                                    @Html.TextBoxFor(model => model.Fax, new {@class = "form-control", placeholder = T("Account.Fields.Fax") + "*"})
+                                }
+                                else
+                                {
+                                    @Html.TextBoxFor(model => model.Fax, new { @class = "form-control", placeholder = T("Account.Fields.Fax") })
+                                }
+                                @Html.ValidationMessageFor(model => model.Fax)
+                            }
+                        </div>
+                    }
+                    if (Model.NewsletterEnabled || Model.CustomerAttributes.Count > 0)
+                    {
+                        <div class="col-md-10 col-md-offset-1 padding-bottom-20 wow fadeInUp" data-wow-delay="0.8s">
+                            <h3 class="text-center">@T("Account.Options")</h3>
+                            @if (Model.NewsletterEnabled)
+                            {
+                                @Html.LabelFor(model => model.Newsletter, new { }, ":")
+                                @Html.EditorFor(model => model.Newsletter)
+                                @Html.ValidationMessageFor(model => model.Newsletter)
+                            }
+                            @if (Model.CustomerAttributes.Count > 0)
+                            {
+                                @Html.Partial("_CustomerAttributes", Model.CustomerAttributes)
+                            }
+                        </div>
+                    }
+                    if (Model.AllowCustomersToSetTimeZone)
+                    {
+                        <div class="col-md-10 col-md-offset-1 padding-bottom-20 wow fadeInUp" data-wow-delay="0.8s">
+                            <h3 class="text-center">@T("Account.Preferences")</h3>
+                            @if (Model.AllowCustomersToSetTimeZone)
+                            {
+                                <div class="input-group">
+                                    <div class="input-group-addon"><span>@T("Account.Fields.TimeZone")</span></div>
+                                    @Html.DropDownList("TimeZoneId", Model.AvailableTimeZones, new { @class = "form-control" })
+                                </div>
+                                @Html.ValidationMessageFor(model => model.TimeZoneId)
+                            }
+                        </div>
+                    }
+                    <div class="col-md-10 col-md-offset-1 padding-bottom-20 wow fadeInUp" data-wow-delay="1s">
+                        <h3 class="text-center">@T("Account.YourPassword")</h3>
+                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = T("Account.Fields.Password") + "*" })
+                        @Html.ValidationMessageFor(model => model.Password)
+
+                        @Html.PasswordFor(model => model.ConfirmPassword, new { @class = "form-control", placeholder = T("Account.Fields.ConfirmPassword") + "*" })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword)
+
+                        @if (Model.DisplayCaptcha)
+                        {
+                            @Html.Raw(Html.GenerateCaptcha())
+                        }
+                        @if (Model.HoneypotEnabled)
+                        {
+                            @Html.Raw(Html.GenerateHoneypotInput())
+                        }
+                    </div>
+                    if (Model.AcceptPrivacyPolicyEnabled)
+                    {
+                        <script type="text/javascript">
+                            $(document).ready(function() {
+                                $('#register-button').click(function() {
+                                    if ($('#accept-privacy-policy').is(':checked')) {
+                                        //do some stuff
+                                        return true;
+                                    } else {
+                                        //just show validation errors, do not post
+                                        alert('@Html.Raw(HttpUtility.JavaScriptStringEncode(T("Account.Fields.AcceptPrivacyPolicy.Required").Text))');
+                                        return false;
+                                    }
+                                });
+                            });
+                        </script>
+                        <div class="col-md-10 col-md-offset-1 accept-privacy-policy wow fadeInUp" data-wow-delay="1s">
+                            <input id="accept-privacy-policy" type="checkbox" name="accept-privacy-policy"/>
+                            <label for="accept-privacy-policy">@T("Account.Fields.AcceptPrivacyPolicy")</label>
+                            <span onclick="javascript:OpenWindow('@Url.RouteUrl("TopicPopup", new {SystemName = "privacyinfo"})', 450, 500, true)">@T("Account.Fields.AcceptPrivacyPolicy.Read")</span>
+                        </div>
+                    }
+                    <div class="col-md-10 col-md-offset-1 padding-bottom-20 wow fadeInUp" data-wow-delay="0.6s">
+                        <span class="small">@T("Admin.Common.RequiredFields")</span>
+                    </div>
+                    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 wow fadeInUp" data-wow-delay="1s">
+                        <input type="submit" id="register-button" class="form-control" name="register-button" value="@T("Account.Register.Button")"/>
+                    </div>
+                        }
+                    </div>
+        </div>
+    </div>
+</section>

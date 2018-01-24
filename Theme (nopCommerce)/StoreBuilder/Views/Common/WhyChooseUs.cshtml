@@ -1,0 +1,90 @@
+﻿@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.Themes
+@{
+    //imac path
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    var imacPath = "~/Themes/" + currentThemeName + "/Content/images/imac.svg";
+}
+<section id="why-choose-us" class="bg-white">
+    <div class="container">
+        <h2 class="page-title-h2 wow bounceIn" data-wow-delay="0.6s">@T("Theme.StoreBuilder.AboutUs.WhyChooseUs")</h2>
+        <div class="row">
+            <div class="col-sm-6 col-xs-12 text-left wow fadeInUp" data-wow-delay="0.8s">
+                <div id="accordion-choose" class="panel-group" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div id="heading1" class="panel-heading" role="tab">
+                            <h5 class="panel-title"><a href="#collapse1" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-choose" aria-expanded="true" aria-controls="collapse1">Mobile App</a></h5>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
+                            <div class="panel-body">
+                                <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</p>
+                                <p>Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div id="heading2" class="panel-heading" role="tab">
+                            <h5 class="panel-title"><a href="#collapse2" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-choose" aria-expanded="false" aria-controls="collapse2">Online Store</a></h5>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+                            <div class="panel-body">
+                                <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</p>
+                                <p>Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div id="heading3" class="panel-heading" role="tab">
+                            <h5 class="panel-title"><a href="#collapse3" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-choose" aria-expanded="false" aria-controls="collapse3">Products </a></h5>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+                            <div class="panel-body">
+                                <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</p>
+                                <p>Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div id="heading4" class="panel-heading" role="tab">
+                            <h5 class="panel-title"><a href="#collapse4" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-choose" aria-expanded="false" aria-controls="collapse4">Payments</a></h5>
+                        </div>
+                        <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+                            <div class="panel-body">
+                                <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</p>
+                                <p>Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div id="heading5" class="panel-heading" role="tab">
+                            <h5 class="panel-title"><a href="#collapse5" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-choose" aria-expanded="false" aria-controls="collapse5">Analysis </a></h5>
+                        </div>
+                        <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+                            <div class="panel-body">
+                                <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</p>
+                                <p>Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div id="heading6" class="panel-heading" role="tab">
+                            <h5 class="panel-title"><a href="#collapse6" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion-choose" aria-expanded="false">Features </a></h5>
+                        </div>
+                        <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
+                            <div class="panel-body">
+                                <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</p>
+                                <p>Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-12 text-left wow fadeInUp" data-wow-delay="0.8s">
+                <div class="imac-mockup">
+                    <img src="@Url.Content(imacPath)" class="device">
+                    <div class="screen"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

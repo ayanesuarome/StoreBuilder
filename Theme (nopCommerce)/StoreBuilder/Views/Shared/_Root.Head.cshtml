@@ -1,0 +1,72 @@
+﻿@using Nop.Core.Domain.Common;
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Framework.Themes
+@{
+    var displayMiniProfiler = EngineContext.Current.Resolve<Nop.Core.Domain.StoreInformationSettings>().DisplayMiniProfilerInPublicStore;
+    var themeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+
+    //CSS resources
+    Html.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/style.css", themeName));
+    Html.AppendCssFileParts(ResourceLocation.Head, "http://fonts.googleapis.com/css?family=Open+Sans:400,300,700");
+    Html.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/back-to-top-scroll.css", themeName));
+    Html.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/pretty-footer.css", themeName));
+    Html.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/pricing-table.css", themeName));
+    Html.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/mockup-imac.css", themeName));
+    Html.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/header.css", themeName));
+    Html.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/icheck/square/blue.css", themeName));
+    Html.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/owl.carousel.css", themeName));
+    Html.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/owl.theme.css", themeName));
+    Html.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/jquery.fancybox.css", themeName));
+    Html.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/animate.min.css", themeName));
+    Html.AppendCssFileParts(ResourceLocation.Head, "~/Content/font-awesome/css/font-awesome.min.css");
+    Html.AppendCssFileParts(ResourceLocation.Head, "~/Content/bootstrap/css/bootstrap.min.css");
+
+    //JS resources
+    Html.AppendScriptParts(ResourceLocation.Foot, string.Format("~/Themes/{0}/Content/js/main.js", themeName));
+    Html.AppendScriptParts(ResourceLocation.Foot, string.Format("~/Themes/{0}/Content/js/wow.min.js", themeName));
+    Html.AppendScriptParts(ResourceLocation.Foot, string.Format("~/Themes/{0}/Content/js/back-to-top-scroll.js", themeName));
+    Html.AppendScriptParts(ResourceLocation.Foot, string.Format("~/Themes/{0}/Content/js/jquery.backstretch.js", themeName));
+    Html.AppendScriptParts(ResourceLocation.Foot, string.Format("~/Themes/{0}/Content/icheck/icheck.min.js", themeName));
+    Html.AppendScriptParts(ResourceLocation.Foot, string.Format("~/Themes/{0}/Content/js/owl.carousel.min.js", themeName));
+    Html.AppendScriptParts(ResourceLocation.Foot, string.Format("~/Themes/{0}/Content/js/jquery.fancybox.pack.js", themeName));
+    Html.AppendScriptParts(ResourceLocation.Foot, "~/Content/bootstrap/js/bootstrap.min.js");
+    Html.AppendScriptParts(ResourceLocation.Head, "~/Scripts/jquery.validate.unobtrusive.min.js");
+    Html.AppendScriptParts(ResourceLocation.Head, "~/Scripts/jquery.validate.min.js");
+    Html.AppendScriptParts(ResourceLocation.Head, "~/Scripts/jquery-2.1.4.min.js");
+
+    //X-UA-Compatible tag
+    var commonSettings = EngineContext.Current.Resolve<CommonSettings>();
+    if (commonSettings.RenderXuaCompatible)
+    {
+        Html.AppendHeadCustomParts(string.Format("<meta http-equiv=\"X-UA-Compatible\" content=\"{0}\"/>", commonSettings.XuaCompatibleValue));
+    }
+}
+<!DOCTYPE html>
+<html @Html.Partial("LanguageAttributes")>
+<head>
+    <title>@Html.NopTitle(true)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+    <meta name="description" content="@(Html.NopMetaDescription())" />
+    <meta name="keywords" content="@(Html.NopMetaKeywords())" />
+    <meta name="generator" content="StoreBuilder" />
+    @Html.NopHeadCustom()
+    @Html.Widget("head_html_tag")
+    @Html.NopCssFiles(this.Url, ResourceLocation.Head)
+    @Html.NopScripts(this.Url, ResourceLocation.Head)
+    @Html.NopCanonicalUrls()
+    @Html.Action("RssHeaderLink", "News")
+    @Html.Action("RssHeaderLink", "Blog")
+    @*Favicon - upload favicon.ico file to the root directory*@
+    @Html.Action("Favicon", "Common")
+    @if (displayMiniProfiler)
+    {
+        @StackExchange.Profiling.MiniProfiler.RenderIncludes()
+    }
+</head>
+<body>
+    @RenderBody()
+    @Html.NopCssFiles(this.Url, ResourceLocation.Foot)
+    @Html.NopScripts(this.Url, ResourceLocation.Foot)
+</body>
+</html>

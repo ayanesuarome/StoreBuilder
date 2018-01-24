@@ -1,0 +1,23 @@
+﻿@using Nop.Core
+@using Nop.Core.Infrastructure
+@using Nop.Services.Localization
+@{
+    //store company phone number
+    var store = EngineContext.Current.Resolve<IStoreContext>().CurrentStore;
+    var companyPhoneNumber = store.GetLocalized(x => x.CompanyPhoneNumber, store.Id);
+    var companyEmailAddress = store.GetLocalized(x => x.CompanyEmailAddress, store.Id);
+}
+
+<header>
+    <div class="container" id="aditional-info">
+        <div class="row">
+            <div class="col-md-5 col-sm-6">
+                <span class="header-phone">
+                    <i class="fa fa-phone"></i>@companyPhoneNumber</span>
+                <span><i class="fa fa-envelope"></i>@companyEmailAddress</span>
+            </div>
+            @Html.Action("HeaderLinks", "Common")
+        </div>
+    </div>
+    @Html.Action("TopMenu", "Catalog", new { liName = ViewBag.Active})
+</header>

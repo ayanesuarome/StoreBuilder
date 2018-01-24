@@ -1,0 +1,73 @@
+﻿@model BlogPostListModel
+@using Nop.Web.Models.Blogs;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Blog").Text);
+
+    double time = 0.6;
+}
+<section id="home" class="home-blog">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1 class="wow fadeInUp" data-wow-delay="0.6s">@T("Theme.StoreBuilder.Blog.Title")</h1>
+                <p class="wow fadeInUp" data-wow-delay="0.8s">@T("Theme.StoreBuilder.Blog.Message")</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="blog" class="blog-list">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 wow bounceInLeft" data-wow-delay="0.2s">
+                <a href="@Url.RouteUrl("BlogRSS", new {languageId = Model.WorkingLanguageId})" class="rss" title="@T("Blog.RSS.Hint")"><i class="fa fa-rss"></i></a>
+            </div>
+            @Html.Widget("bloglist_page_before_posts")
+            @foreach (var item in Model.BlogPosts)
+            {
+                <div class="col-md-4 col-sm-6 blog-post wow fadeInUp" data-wow-delay="@string.Format("{0}s", time)">
+                    <div class="blog-thumb">
+                        <a href="@Url.RouteUrl("BlogPost", new {SeName = item.SeName})">
+                            @if (!string.IsNullOrEmpty(item.PictureModel.ImageUrl))
+                            {
+                                <img class="img-responsive" src="@item.PictureModel.ImageUrl" alt="@item.PictureModel.AlternateText">
+                            }
+                            else
+                            {
+                                <span class="fa-stack fa-5x">
+                                    <i class="fa fa-camera fa-stack-1x"></i>
+                                    <i class="fa fa-ban fa-stack-2x"></i>
+                                </span>
+                            }
+                            <h3>@item.Title</h3>
+                            <div class="post-format">
+                                <i class="fa fa-calendar"></i><span>@item.CreatedOn.ToString("D")</span>
+                                @if (item.AllowComments)
+                                {
+                                    <i class="fa fa-comments"></i><span>@item.NumberOfComments</span>
+                                }
+                            </div>
+                            <a href="@Url.RouteUrl("BlogPost", new {SeName = item.SeName})" class="btn btn-danger">@T("Theme.StoreBuilder.ReadMore")</a>
+                        </a>
+                    </div>
+                </div>
+                time = time + 0.2;
+            }
+        </div>
+        @{
+            var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+        }
+        @if (!pager.IsEmpty())
+        {
+            <div class="row">
+                <div class="col-md-12 wow fadeInUp" data-wow-delay="0.6s">
+                    @pager
+                </div>
+            </div>
+        }
+        @Html.Widget("bloglist_page_after_posts")
+    </div>
+</section>

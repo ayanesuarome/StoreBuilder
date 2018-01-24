@@ -1,0 +1,66 @@
+﻿@model NewsletterBoxModel
+@using Nop.Web.Models.Newsletter;
+
+<div class="newslatter-footer">
+    <div>
+        <p>@T("Theme.StoreBuilder.Footer.NewsletterSignup")</p>
+        <p>@T("Theme.StoreBuilder.Footer.NewsletterSignupInfo")</p>
+    </div>
+    <div class="subscribe-form">
+        <div class="input-field">
+            @Html.TextBoxFor(x => x.NewsletterEmail, new {id = "newsletter-email", @class = "form-control subscribe", placeholder = T("Theme.StoreBuilder.Newsletter.Email.Placeholder")})
+            <button type="button" id="newsletter-subscribe-button" class="btn btn-default subscription-icon"><i class="fa fa-paper-plane fa-lg"></i></button>
+        </div>
+        <div class="newsletter-validation">
+            <span id="subscribe-loading-progress" class="please-wait" style="display: none;">
+                <i class="fa fa-spinner fa-pulse"></i>
+                @T("Common.Wait...")
+            </span>
+            @Html.ValidationMessageFor(x => x.NewsletterEmail)
+            <div id="newsletter-result-block" class="newsletter-result"></div>
+        </div>
+    </div>
+    
+</div>
+<script type="text/javascript">
+        function newsletter_subscribe(subscribe) {
+            var email = $("#newsletter-email").val();
+            var subscribeProgress = $("#subscribe-loading-progress");
+            subscribeProgress.show();
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@(Url.RouteUrl("SubscribeNewsletter"))",
+                data: { "subscribe": subscribe, "email": email },
+                success: function(data) {
+                    subscribeProgress.hide();
+                    $("#newsletter-result-block").html(data.Result);
+                    if (data.Success) {
+                        $('#newsletter-subscribe-block').hide();
+                        $('#newsletter-result-block').show();
+                    } else {
+                        $('#newsletter-result-block').fadeIn("slow").delay(2000).fadeOut("slow");
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(T("Admin.Common.Subscription.FailedError").Text);
+                    subscribeProgress.hide();
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#newsletter-subscribe-button').click(function () {
+                @if (!Model.AllowToUnsubscribe)
+                {
+                    <text>newsletter_subscribe('true');</text>
+                }
+            });
+            $("#newsletter-email").keydown(function (event) {
+                if (event.keyCode == 13) {
+                    $("#newsletter-subscribe-button").click();
+                    return false;
+                }
+            });
+        });
+</script>

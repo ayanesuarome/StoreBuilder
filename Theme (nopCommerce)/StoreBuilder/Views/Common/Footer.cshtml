@@ -1,0 +1,80 @@
+﻿@model FooterModel
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.Themes
+@using Nop.Web.Models.Common;
+
+@{
+    //logo path
+    var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    var logoPath = "~/Themes/" + currentThemeName + "/Content/images/logo.png";
+}
+
+<footer>
+    <div class="row">
+        <div class="col-md-4 col-sm-6 footer-navigation wow fadeInUp" data-wow-delay="0.2s">
+            <h3><a href="@Url.RouteUrl("HomePage")"><img alt="@Model.StoreName" src="@Url.Content(logoPath)"></a></h3>
+            <p class="links">
+                <a href="@Url.Action("AboutUs", "Common")">@T("Admin.Common.AboutUs")</a><strong> · </strong>
+                @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
+                {
+                    <a href="@Url.RouteUrl("Topic", new {topic.SeName})">@topic.Name</a><strong> · </strong>
+                }
+                @if (Model.NewsEnabled)
+                {
+                    <a href="@Url.RouteUrl("Blog")">@T("Blog")</a><strong> · </strong>
+                }
+                <a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a>
+            </p>
+            <p class="company-legal-data">
+                Powered by <a href="http://www.nopcommerce.com/">nopCommerce</a><br />
+                @T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)
+            </p>
+            @Html.Action("NewsletterBox", "Newsletter")
+        </div>
+        <div class="col-md-4 col-sm-6 footer-contacts wow fadeInUp" data-wow-delay="0.4s">
+            <div>
+                <i class="fa fa-map-marker footer-contacts-icon"></i>
+                @Html.Action("TopicBlockNoTitle", "Topic", new { systemName = "CompanyAddressFooterText" })
+            </div>
+            <div>
+                <i class="fa fa-phone footer-contacts-icon"></i>
+                <p class="footer-center-info email text-left">@Model.CompanyPhoneNumber</p>
+            </div>
+            <div>
+                <i class="fa fa-envelope footer-contacts-icon"></i>
+                <p><a href="javascript::">@Model.CompanyEmailAddress</a></p>
+            </div>
+        </div>
+        <div class="clearfix visible-sm-block"></div>
+        <div class="col-md-4 footer-about wow fadeInUp" data-wow-delay="0.8s">
+            @Html.Action("TopicBlockNoTitle", "Topic", new {systemName = "AboutUsFooterText"})
+            <div class="social-links">
+                @if (Model.NewsEnabled)
+                {
+                    <a href="@Url.RouteUrl("NewsRSS", new {languageId = Model.WorkingLanguageId})" target="_blank" class="rss wow fadeInUp" data-wow-delay="1.2s"><i class="fa fa-rss"></i></a>
+                }
+                @if (!string.IsNullOrEmpty(Model.FacebookLink))
+                {
+                    <a href="@Model.FacebookLink" target="_blank" class="facebook wow fadeInUp" data-wow-delay="1.4s"><i class="fa fa-facebook"></i></a>
+                }
+                @if (!string.IsNullOrEmpty(Model.GooglePlusLink))
+                {
+                    <a href="@Model.GooglePlusLink" target="_blank" class="googleplus wow fadeInUp" data-wow-delay="1.6s"><i class="fa fa-google-plus"></i></a>
+                }
+                @if (!string.IsNullOrEmpty(Model.TwitterLink))
+                {
+                    <a href="@Model.TwitterLink" target="_blank" class="twitter wow fadeInUp" data-wow-delay="1.8s"><i class="fa fa-twitter"></i></a>
+                }
+                @if (!string.IsNullOrEmpty(Model.LinkedInLink))
+                {
+                    <a href="@Model.LinkedInLink" target="_blank" class="linkedin wow fadeInUp" data-wow-delay="2s"><i class="fa fa-linkedin"></i></a>
+                }
+                @if (!string.IsNullOrEmpty(Model.YoutubeLink))
+                {
+                    <a href="@Model.YoutubeLink" target="_blank" class="youtube wow fadeInUp" data-wow-delay="2.2s"><i class="fa fa-youtube"></i></a>
+                }
+            </div>
+        </div>
+    </div>
+    @Html.Widget("footer")
+</footer>

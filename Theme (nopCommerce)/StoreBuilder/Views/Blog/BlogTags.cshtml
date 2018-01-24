@@ -1,0 +1,16 @@
+﻿@model BlogPostTagListModel
+@using Nop.Web.Models.Blogs
+@if (Model.Tags.Count > 0)
+{
+    <div class="blog-tags">
+        <h2>@T("Theme.StoreBuilder.Blog.PostTags")</h2>
+        <ul class="list-unstyled">
+            @foreach (var item in Model.Tags)
+                {
+                <li>
+                    <a href="@Url.RouteUrl("BlogByTag", new { tag = item.Name })">@item.Name</a>
+                </li>
+            }
+        </ul>
+    </div>
+}

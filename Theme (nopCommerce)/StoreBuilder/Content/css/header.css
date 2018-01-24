@@ -1,0 +1,154 @@
+header {
+  background-color:rgba(250,250,250,0.8);
+}
+
+header a {
+  color:#616b76;
+}
+
+header #aditional-info {
+  color:#666;
+  padding-top:20px;
+  padding-bottom:18px;
+  line-height:1.2;
+  font-weight:300;
+  font-size:14px;
+  letter-spacing:1px;
+}
+
+header #aditional-info span {
+  display:inline-block;
+  letter-spacing:1px;
+}
+
+header span.header-phone {
+  padding-right:20px;
+}
+
+header span .fa {
+  padding-right:10px;
+}
+
+header .aditional-info-links {
+  margin-top:26px;
+}
+
+header .aditional-info-links .btn{
+  padding:5px 8px;
+  color:#fff;
+}
+header .aditional-info-links .btn:hover, header .aditional-info-links .btn:active{
+  color:#616b76;
+  border:1px solid rgba(250,250,250,0.8);
+  background-color:rgba(250,250,250,0.8);
+}
+header .aditional-info-links .btn-primary{
+  border:1px solid #009ee3;
+}
+
+header #aditional-info li {
+  padding-left:11px;
+  padding-right:15px;
+  border-right:1px solid #d8d8d8;
+  margin-top:4px;
+  text-transform: capitalize;
+}
+
+header #aditional-info li.active a {
+  color:#64aed9;
+}
+
+header #aditional-info li:last-child {
+  border:none;
+}
+
+header #aditional-info li:first-child {
+  padding-left:0;
+}
+
+header #nav-header-menu {
+  padding-top:10px;
+  box-shadow:0px 2px 8px 0px rgba(50, 50, 50, 0.04);
+  border-radius:0px;
+  text-transform:uppercase;
+  border:none;
+  font-size:16px;
+  margin-bottom:10px;
+  background:#fff;
+}
+
+header .navbar-default .navbar-brand {
+  color:#009EE3;
+  font-size:26px;
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+header .navbar-default .navbar-brand:focus, header .navbar-default .navbar-brand:hover {
+  color:#5e5e5e !important;
+}
+
+header #nav-header-menu li {
+  text-align:center;
+}
+
+header #nav-header-menu a:hover {
+  color:#64aed9;
+}
+
+header #nav-header-menu ul > li > a {
+  color:#5F6F7E;
+  letter-spacing:1px;
+  background-color:transparent;
+}
+
+header #nav-header-menu ul > li.active > a, header #nav-header-menu ul > li > a:hover, header #nav-header-menu ul > li > a:focus, header #nav-header-menu ul > li.open > a, header #nav-header-menu ul > li.open > a:hover, header #nav-header-menu ul > li.open > a:focus {
+  color:#64aed9 !important;
+  background:transparent;
+  box-shadow:none !important;
+}
+
+header nav ul > li.active > a {
+  border-bottom:1px solid #64aed9;
+}
+
+header .navbar-default .navbar-toggle {
+  border:none;
+  padding-top:30px;
+}
+
+header .navbar-default .navbar-toggle:hover, header .navbar-default .navbar-toggle:focus {
+  background-color:transparent;
+}
+
+header .site-logo {
+  padding-top:0;
+}
+
+/*============================================================ 
+	Responsive Styles
+ ============================================================*/
+@media (min-width:768px) {
+  header .navbar-nav {
+    float:right;
+    margin:0;
+  }
+  header .aditional-info-links {
+    margin-top:0;
+  }
+  header ul.aditional-info-links {
+    float:right;
+  }
+}
+
+@media (min-width:355px) and (max-width:392px) {
+  header #aditional-info span {
+    letter-spacing:normal;
+  }
+}
+
+@media (max-width:354px) {
+  header #aditional-info span {
+    padding-top:8px;
+  }
+}

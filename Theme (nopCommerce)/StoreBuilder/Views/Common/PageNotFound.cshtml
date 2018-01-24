@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.PageNotFound").Text);
+}
+<section id="error-404">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-1 col-sm-5 wow fadeInLeft" data-wow-delay="0.4s">
+                <div class="error-thumb">
+                    <h1>404</h1><strong>@T("Theme.StoreBuilder.PageNotFound.PageCanNotBeFound")</strong>
+                </div>
+            </div>
+            <div class="col-md-5 col-md-offset-1 col-sm-7 wow fadeInUp" data-wow-delay="0.8s">
+                <h1>Oops.<br /><span>@T("Theme.StoreBuilder.PageNotFound.SomethingWrong")</span></h1>
+                <p>@T("Theme.StoreBuilder.PageNotFound.Message")</p>
+                <p>@T("Theme.StoreBuilder.PageNotFound.CanGoBack")&nbsp;<a href="@Url.RouteUrl("HomePage")">@T("HomePage")</a></p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,42 @@
+﻿@model HomePageNewsItemsModel
+@using Nop.Web.Models.News;
+@if (Model.NewsItems.Count >= 3)
+{
+    double time = 0.4;
+    <section id="blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="sec-title-h2 wow bounceIn"><strong>@T("Theme.StoreBuilder.News.Home.Title.Our")</strong>&nbsp;@T("Theme.StoreBuilder.News.Home.Title.News")</h2>
+                    <h4 class="sec-title-h4 wow fadeInUp" data-wow-delay="0.2s">@T("Theme.StoreBuilder.News.Home.Message")</h4>
+                    @foreach (var item in Model.NewsItems)
+                    {
+                        <div class="col-md-4 col-sm-6 wow fadeInUp" data-wow-delay="@string.Format("{0}s", time)">
+                            <div class="blog-thumb">
+                                <a href="@Url.RouteUrl("NewsItem", new {SeName = item.SeName})">
+                                    @if (!string.IsNullOrEmpty(item.PictureModel.ImageUrl))
+                                    {
+                                        <img class="img-responsive" src="@item.PictureModel.ImageUrl" alt="@item.PictureModel.AlternateText">
+                                    }
+                                    else
+                                    {
+                                        <span class="fa-stack fa-5x">
+                                            <i class="fa fa-camera fa-stack-1x"></i>
+                                            <i class="fa fa-ban fa-stack-2x"></i>
+                                        </span>
+                                    }
+                                    <h3>@item.Title</h3>
+                                    <div class="post-format">
+                                        <i class="fa fa-calendar"></i><span>&nbsp;@item.CreatedOn.ToString("D")</span>
+                                    </div>
+                                    <a href="@Url.RouteUrl("NewsItem", new {SeName = item.SeName})" class="btn btn-danger">@T("Theme.StoreBuilder.ReadMore")</a>
+                                </a>
+                            </div>
+                        </div>
+                        time = time + 0.2;
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+}

@@ -1,0 +1,35 @@
+﻿@model CustomerMallModel
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+    Html.AddTitleParts(T("Admin.Customer.PageTitle.CreateMall").Text);
+}
+<section id="create-mall">
+    <div class="container">
+        <h2 class="wow bounceIn page-title-h2" data-wow-delay="0.4s">@T("Admin.Customer.PageTitle.CreateMall")</h2>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
+                @using (Html.BeginForm())
+                {
+                    <div class="col-md-10 col-md-offset-1 padding-bottom-20 wow fadeInUp" data-wow-delay="0.6s">
+                        @Html.TextBoxFor(model => model.Name, new {@class = "form-control", placeholder = T("Admin.Customer.Fields.MallName") + "*"})
+                        @Html.ValidationMessageFor(model => model.Name)
+                        @Html.TextBoxFor(model => model.StoreName, new {@class = "form-control", placeholder = T("Admin.Customer.Fields.StoreName") + "*"})
+                        @Html.ValidationMessageFor(model => model.StoreName)
+                        <div class="input-group">
+                            @Html.TextBoxFor(model => model.StoreUrl, new {@class = "form-control", placeholder = T("Admin.Customer.Fields.StoreUrl") + "*"})
+                            <span class="input-group-addon">@T("Admin.Common.StoreBuilderDomain")</span>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.StoreUrl)
+                        <p class="small text-info">@T("Admin.Customer.Fields.StoreUrl.TextInfo")</p>
+                    </div>
+                    <div class="col-md-10 col-md-offset-1 padding-bottom-20 wow fadeInUp" data-wow-delay="0.6s">
+                        <span class="small">@T("Admin.Common.RequiredFields")</span>
+                    </div>
+                    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 padding-top-10 wow fadeInUp" data-wow-delay="0.8s">
+                        <input type="submit" id="create-mall-button" class="form-control" name="create-mall-button" value="@T("Theme.StoreBuilder.CreateMall.Button")" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
