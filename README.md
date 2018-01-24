@@ -15,6 +15,12 @@ Feel free to use it for any personal or commercial purpose.
 ### Why choose us
 ![screenshot](https://github.com/ayanesuarome/StoreBuilder/blob/master/screenshots/why-choose-us.jpg)
 
+### Blog
+![screenshot](https://github.com/ayanesuarome/StoreBuilder/blob/master/screenshots/blog.jpg)
+
+### Responsive Blog item (Samsung Galaxy S7)
+![screenshot](https://github.com/ayanesuarome/StoreBuilder/blob/master/screenshots/responsive-blog-item.jpg)
+
 ### Feature projects
 ![screenshot](https://github.com/ayanesuarome/StoreBuilder/blob/master/screenshots/project.jpg)
 
@@ -34,7 +40,7 @@ Feel free to use it for any personal or commercial purpose.
   <li>Datapicker</li>
   <li>Icheck</li>
 </ul>
-<br />
 The nopCommerce theme has some new variables and regions. So, if you want to used it, you need to adapt the theme to your .NET solution.
+<br /><br />
 ## License
 <a href="https://github.com/ayanesuarome/StoreBuilder/blob/master/LICENSE">MIT</a>
