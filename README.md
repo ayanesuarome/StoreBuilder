@@ -19,7 +19,9 @@ Feel free to use it for any personal or commercial purpose.
 ![screenshot](https://github.com/ayanesuarome/StoreBuilder/blob/master/screenshots/blog.png)
 
 ### Responsive Blog item (Samsung Galaxy S7)
-![screenshot](https://github.com/ayanesuarome/StoreBuilder/blob/master/screenshots/responsive-blog-item.png)
+<center>
+	![screenshot](https://github.com/ayanesuarome/StoreBuilder/blob/master/screenshots/responsive-blog-item.png)
+</center>
 
 ### Feature projects
 ![screenshot](https://github.com/ayanesuarome/StoreBuilder/blob/master/screenshots/project.jpg)
